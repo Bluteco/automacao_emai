@@ -1,0 +1,95 @@
+# importando Bilbliotecas 
+import unittest
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+import time
+
+# entrar no site da xxxx@xxxx.com:
+
+
+navegador = webdriver.Chrome() #Chrome tem que se com letra maiuscula 
+
+navegador.set_window_size(1680, 1050) # abre em fullscrem o navegador 
+navegador.get("https://office.vallery.com.br/crm/v4/tickets/tarefas")
+
+#teste de abertura ->
+
+# comando para fechar novas abas.
+pagina_principal = navegador.current_window_handle
+for handle in navegador.window_handles:
+    if handle != pagina_principal:
+        print(handle)
+        pagina_do_logim = handle
+        break
+navegador.switch_to.window(pagina_principal)
+
+time.sleep(2)
+
+
+navegador.find_element(By.XPATH,'//*[@id="email"]').send_keys("fabion")
+time.sleep(1)
+navegador.find_element(By.XPATH,'//*[@id="password"]').send_keys("cu4swi1ve9")
+time.sleep(1)
+navegador.find_element(By.XPATH,'//*[@id="password"]').send_keys(Keys.ENTER)
+time.sleep(1)
+
+navegador.find_element(By.XPATH,'//*[@id="azSidebarToggle"]').send_keys(Keys.ENTER)
+
+navegador.find_element(By.XPATH,'/html/body/div[1]/div[3]/ul/li[3]/a').click()
+time.sleep(1)
+navegador.find_element(By.XPATH,'/html/body/div[1]/div[3]/ul/li[3]/ul/li[2]/a').click()
+time.sleep(1)
+navegador.find_element(By.XPATH,'//*[@id="search"]').send_keys("ENTRAR COM E-MAIL DO CLIENTE ATRAVEZ DO FOR")
+navegador.find_element(By.XPATH,'//*[@id="search"]').send_keys(Keys.ENTER)
+time.sleep(1)
+navegador.find_element(By.XPATH,'//*[@id="bootstrapTable"]/tbody/tr[1]/td[7]/a[4]').click()
+time.sleep(1)
+navegador.find_element(By.XPATH,'//*[@id="search"]').click()
+
+# Apartir daqui,  ele ira abri uma segundo navegado !
+
+
+navegador.execute_script( "window.open()" ) # abre uma segunda pagina
+
+
+
+time.sleep(1)
+navegador.close()
+
+print(navegador.window_handles) #retorna a pagina anterior 
+
+time.sleep(3)
+
+#navegador.close()
+
+navegador.switch_to.window(navegador.window_handles[-1])# retorna e valida a pagina 
+
+
+navegador.find_element(By.XPATH,'//*[@id="cartTable"]/thead/tr[1]/th[3]/a').click()
+time.sleep(8)
+
+navegador.find_element(By.XPATH,'/html/body/div[9]/div[2]/div/div/div/div/div/div/div/div[4]/button').click()
+time.sleep(5)
+
+navegador.find_element(By.XPATH,'//*[@id="btnGroupDrop4"]').click()
+time.sleep(1)
+
+navegador.find_element(By.XPATH,'//*[@id="cartTable"]/thead/tr[1]/th[3]/div/div/div/a[2]').click()
+navegador.execute_script( "window.open()" ) # abre uma segunda pagina 
+#print(navegador.window_handles) #retorna a pagina anterior 
+
+
+
+
+navegador.switch_to.window(navegador.window_handles[-1])# retorna e valida a pagina 
+navegador.find_element(By.XPATH,'/html/body/center[1]/a').click()
+#print(navegador.window_handles)
+
+navegador.execute_script( "window.open()")
+
+navegador.switch_to.window(navegador.window_handles[-1])# retorna e valida a pagina 
+time.sleep(1)
+print(navegador.window_handles) #retorna a pagina anterior 
+
